@@ -1,0 +1,18 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.11
+
+  build:
+    commands:
+      - echo Packaging templates...
+      - aws s3 cp vpc.yaml s3://iac-bucket-azamcloud/
+      - aws s3 cp ec2.yaml s3://iac-bucket-azamcloud/
+      - aws s3 cp rds.yaml s3://iac-bucket-azamcloud/
+      - aws s3 cp s3.yaml s3://iac-bucket-azamcloud/
+
+artifacts:
+  files:
+    - '**/*'
