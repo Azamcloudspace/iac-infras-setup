@@ -22,4 +22,3 @@ parameters:
     parameterValue: admin
   - parameterKey: DBPassword
     parameterValue: YourStrongP@ssw0rd
-
