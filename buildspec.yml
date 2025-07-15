@@ -12,24 +12,7 @@ phases:
       - aws s3 cp ec2.yaml s3://iac-bucket-azamcloud/
       - aws s3 cp rds.yaml s3://iac-bucket-azamcloud/
       - aws s3 cp s3.yaml s3://iac-bucket-azamcloud/
-      - aws cloudformation deploy --template-file master-stack.yaml --stack-name ProdInfraStack --capabilities CAPABILITY_NAMED_IAM
-
-post_build:
-  commands:
-    - |
-      echo "{
-        \"Environment\": \"prod\",
-        \"VpcCIDR\": \"10.0.0.0/16\",
-        \"PublicSubnet1CIDR\": \"10.0.1.0/24\",
-        \"PublicSubnet2CIDR\": \"10.0.2.0/24\",
-        \"PrivateSubnet1CIDR\": \"10.0.3.0/24\",
-        \"PrivateSubnet2CIDR\": \"10.0.4.0/24\",
-        \"AMI\": \"ami-0150ccaf51ab55a51\",
-        \"DBUser\": \"admin\",
-        \"DBPassword\": \"password123\"
-      }" > parameter-overrides.json
-
+      
 artifacts:
   files:
-    - '**/*'
     - parameter-overrides.json
