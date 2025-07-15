@@ -23,4 +23,3 @@ parameters:
   - parameterKey: DBPassword
     parameterValue: YourStrongP@ssw0rd
 
-    
