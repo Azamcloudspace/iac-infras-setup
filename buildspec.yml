@@ -4,21 +4,20 @@ phases:
   install:
     runtime-versions:
       python: 3.11
+    commands:
+      - echo Installing dependencies...
+      - yum install -y jq
 
   build:
     commands:
-      - echo Uploading nested templates to S3...
-      - aws s3 cp vpc.yaml s3://iac-bucket-azamcloud/
-      - aws s3 cp ec2.yaml s3://iac-bucket-azamcloud/
-      - aws s3 cp rds.yaml s3://iac-bucket-azamcloud/
-      - aws s3 cp s3.yaml s3://iac-bucket-azamcloud/
-      - echo Deploying Master Stack...
+      - echo Deploying CloudFormation stack...
       - aws cloudformation deploy \
           --template-file master-stack.yaml \
-          --stack-name iac-prod \
+          --stack-name iac-infras-prod \
           --capabilities CAPABILITY_NAMED_IAM \
-          --parameter-overrides file://prod-params.json
+          --parameter-overrides $(cat prod-params.json | jq -r '.[] | "\(.ParameterKey)=\(.ParameterValue)"')
 
 artifacts:
   files:
-    - '**/*'
+    - master-stack.yaml
+    - prod-params.json
