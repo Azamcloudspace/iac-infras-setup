@@ -14,7 +14,6 @@ phases:
       - aws s3 cp s3.yaml s3://iac-bucket-azamcloud/
       - aws cloudformation deploy --template-file master-stack.yaml --stack-name iac-prod --capabilities CAPABILITY_NAMED_IAM --parameter-overrides file://prod-params.json
 
-
 artifacts:
   files:
     - '**/*'
