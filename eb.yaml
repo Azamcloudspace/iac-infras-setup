@@ -1,0 +1,33 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Elastic Beanstalk app with environment
+
+Resources:
+  EBApplication:
+    Type: AWS::ElasticBeanstalk::Application
+    Properties:
+      ApplicationName: MyApp
+      Description: My Canary Deploy App
+
+  EBEnvironment:
+    Type: AWS::ElasticBeanstalk::Environment
+    Properties:
+      EnvironmentName: MyApp-env
+      ApplicationName: !Ref EBApplication
+      SolutionStackName: "64bit Amazon Linux 2 v5.8.4 running Node.js 18"
+      OptionSettings:
+        - Namespace: aws:elasticbeanstalk:command
+          OptionName: DeploymentPolicy
+          Value: RollingWithAdditionalBatch
+        - Namespace: aws:elasticbeanstalk:command
+          OptionName: BatchSizeType
+          Value: Percentage
+        - Namespace: aws:elasticbeanstalk:command
+          OptionName: BatchSize
+          Value: 10
+        - Namespace: aws:elasticbeanstalk:command
+          OptionName: PauseTime
+          Value: PT5M
+      VersionLabel: Initial
+      Tier:
+        Name: WebServer
+        Type: Standard
