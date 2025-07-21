@@ -13,7 +13,7 @@ Resources:
     Properties:
       EnvironmentName: MyApp-env
       ApplicationName: !Ref EBApplication
-      SolutionStackName: "64bit Amazon Linux 2 v5.8.4 running Node.js 18"
+      SolutionStackName: "64bit Amazon Linux 2023 v6.6.1 running Node.js 22"
       OptionSettings:
         - Namespace: aws:elasticbeanstalk:command
           OptionName: DeploymentPolicy
