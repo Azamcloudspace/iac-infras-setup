@@ -8,12 +8,21 @@ Resources:
       ApplicationName: MyApp
       Description: My Canary Deploy App
 
+  EBApplicationVersion:
+    Type: AWS::ElasticBeanstalk::ApplicationVersion
+    Properties:
+      ApplicationName: !Ref EBApplication
+      Description: Initial version
+      SourceBundle:
+        S3Bucket: my-artifacts-azamcloud
+        S3Key: app.zip
+
   EBEnvironment:
     Type: AWS::ElasticBeanstalk::Environment
     Properties:
       EnvironmentName: MyApp-env
       ApplicationName: !Ref EBApplication
-      SolutionStackName: "64bit Amazon Linux 2023 v6.6.1 running Node.js 22"
+      SolutionStackName: "64bit Amazon Linux 2 v5.8.4 running Node.js 18"
       OptionSettings:
         - Namespace: aws:elasticbeanstalk:command
           OptionName: DeploymentPolicy
@@ -27,7 +36,7 @@ Resources:
         - Namespace: aws:elasticbeanstalk:command
           OptionName: PauseTime
           Value: PT5M
-      VersionLabel: Initial
+      VersionLabel: !Ref EBApplicationVersion
       Tier:
         Name: WebServer
         Type: Standard
