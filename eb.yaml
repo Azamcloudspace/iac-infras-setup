@@ -39,6 +39,12 @@ Resources:
         - Namespace: aws:autoscaling:launchconfiguration
           OptionName: IamInstanceProfile
           Value: aws-elasticbeanstalk-ec2-role
+        - Namespace: aws:ec2:vpc
+          OptionName: VPCId
+          Value: vpc-0f4a5bd5b039ab9c5
+        - Namespace: aws:ec2:vpc
+          OptionName: Subnets
+          Value: subnet-07ecaf649eb4dcc3c
 
       VersionLabel: !Ref EBApplicationVersion
       Tier:
