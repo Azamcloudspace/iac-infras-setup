@@ -44,7 +44,7 @@ Resources:
           Value: vpc-0f4a5bd5b039ab9c5
         - Namespace: aws:ec2:vpc
           OptionName: Subnets
-          Value: subnet-07ecaf649eb4dcc3c
+          Value: subnet-07ecaf649eb4dcc3c,subnet-0778d8f3d56702af8
 
       VersionLabel: !Ref EBApplicationVersion
       Tier:
