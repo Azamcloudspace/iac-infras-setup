@@ -69,10 +69,10 @@ Resources:
 #      Parameters:
 #        Environment: !Ref Environment
   
-#  EBStack:
-#   Type: AWS::CloudFormation::Stack
-#   Properties:
-#     TemplateURL: https://s3.amazonaws.com/iac-bucket-azamcloud/eb.yaml
+  EBStack:
+   Type: AWS::CloudFormation::Stack
+   Properties:
+     TemplateURL: https://s3.amazonaws.com/iac-bucket-azamcloud/eb.yaml
       
 
   ArtifactBucketStack:
