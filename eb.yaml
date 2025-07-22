@@ -36,6 +36,10 @@ Resources:
         - Namespace: aws:elasticbeanstalk:command
           OptionName: PauseTime
           Value: PT5M
+        - Namespace: aws:autoscaling:launchconfiguration
+          OptionName: IamInstanceProfile
+          Value: aws-elasticbeanstalk-ec2-role
+
       VersionLabel: !Ref EBApplicationVersion
       Tier:
         Name: WebServer
