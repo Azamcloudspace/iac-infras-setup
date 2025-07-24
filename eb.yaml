@@ -39,13 +39,6 @@ Resources:
         - Namespace: aws:autoscaling:launchconfiguration
           OptionName: IamInstanceProfile
           Value: aws-elasticbeanstalk-ec2-role
-        - Namespace: aws:autoscaling:asg
-          OptionName: MinSize
-          Value: 5
-        - Namespace: aws:autoscaling:asg
-          OptionName: MaxSize
-          Value: 10
-
        
       VersionLabel: !Ref EBApplicationVersion
       Tier:
