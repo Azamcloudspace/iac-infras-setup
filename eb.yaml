@@ -20,9 +20,9 @@ Resources:
   EBEnvironment:
     Type: AWS::ElasticBeanstalk::Environment
     Properties:
-      EnvironmentName: MyApp-env2
+      EnvironmentName: MyApp-env1
       ApplicationName: !Ref EBApplication
-      SolutionStackName: "64bit Amazon Linux 2023 v4.7.1 running PHP 8.4"
+      SolutionStackName: "64bit Amazon Linux 2023 v4.7.1 running PHP 8.2"
       OptionSettings:
         - Namespace: aws:elasticbeanstalk:command
           OptionName: DeploymentPolicy
