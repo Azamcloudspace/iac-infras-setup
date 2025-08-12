@@ -25,8 +25,29 @@ AWSTemplateFormatVersion: '2010-09-09'
 #    Type: String
 #
 #  DBPassword:
-#    Type: String
-#
+    Type: String
+
+  TaskFamily:
+    Type: String
+
+  ContainerName:
+    Type: String
+
+  ContainerPort:
+    Type: Number
+
+  Cpu:
+    Type: String
+
+  Memory:
+    Type: String
+
+  ExecutionRoleArn:
+    Type: String
+
+  ImageUrl:
+    Type: String
+
 Resources:
 #  VPCStack:
 #    Type: AWS::CloudFormation::Stack
@@ -79,4 +100,19 @@ Resources:
    Properties:
      TemplateURL: https://s3.amazonaws.com/iac-bucket-azamcloud/eb.yaml
       
-    
+    ECSStack:
+     Type: AWS::CloudFormation::Stack
+     Properties:
+      TemplateURL: https//s3.amazonaws.com/iac-bucket-azamcloud/ecs.yaml
+      Parameters:
+       Taskfamily: !Ref Taskfamily
+       ContainerName: !Ref ContainerName
+       ContainerPort: !Ref ContainerPort
+       Cpu: !Ref CPU
+       Memory: !Ref Memory 
+       ExecutionRoleARN: !Ref ExecutionRoleARN
+       ImageUrl: !Ref ImageUrl
+       
+       
+      
+
