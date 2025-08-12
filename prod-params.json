@@ -54,7 +54,7 @@
   {
     "ParameterKey": "Memory",
     "ParameterValue": "512"
-  ,
+  },
   {
     "ParameterKey": "ExecutionRoleArn",
     "ParameterValue": ""
@@ -64,4 +64,3 @@
     "ParameterValue": ""
   }
 ]
-
