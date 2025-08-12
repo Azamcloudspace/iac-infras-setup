@@ -34,6 +34,34 @@
   {
     "ParameterKey": "DBPassword",
     "ParameterValue": "cnhnhbejhfbe857748"
+  },
+    {
+    "ParameterKey": "TaskFamily",
+    "ParameterValue": "cnhnhbejhfbe857748"
+  },
+    {
+    "ParameterKey": "ContainerName",
+    "ParameterValue": "web"
+  },
+    {
+    "ParameterKey": "ContainerPort",
+    "ParameterValue": "80"
+  },
+    {
+    "ParameterKey": "Cpu",
+    "ParameterValue": "256"
+  },
+  {
+    "ParameterKey": "Memory",
+    "ParameterValue": "512"
+  ,
+  {
+    "ParameterKey": "ExecutionRoleArn",
+    "ParameterValue": ""
+  },
+  {
+    "ParameterKey": "ImageUrl",
+    "ParameterValue": ""
   }
 ]
 
