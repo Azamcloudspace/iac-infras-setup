@@ -1,0 +1,59 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: ECS Service stack
+
+Parameters:
+  ServiceName:
+    Type: String
+
+  ClusterName:
+    Type: String
+
+  TaskDefinitionArn:
+    Type: String
+
+  Subnets:
+    Type: List<AWS::EC2::Subnet::Id>
+
+  SecurityGroups:
+    Type: List<AWS::EC2::SecurityGroup::Id>
+
+  DesiredCount:
+    Type: Number
+
+  TargetGroupArn:
+    Type: String
+
+  ContainerName:
+    Type: String
+
+  ContainerPort:
+    Type: Number
+    
+    
+
+Resources:
+  ECSService:
+    Type: AWS::ECS::Service
+    Properties:
+      ServiceName: !Ref ServiceName
+      Cluster: !Ref ClusterName
+      TaskDefinition: !Ref TaskDefinitionArn
+      DesiredCount: !Ref DesiredCount
+      LaunchType: FARGATE
+      NetworkConfiguration:
+        AwsvpcConfiguration:
+          AssignPublicIp: ENABLED
+          Subnets: !Ref Subnets
+          SecurityGroups: !Ref SecurityGroups
+      LoadBalancers:
+        - TargetGroupArn: !Ref TargetGroupArn
+          ContainerName: !Ref ContainerName
+          ContainerPort: !Ref ContainerPort
+      DeploymentConfiguration:
+        MaximumPercent: 200
+        MinimumHealthyPercent: 50
+
+Outputs:
+  ECSServiceName:
+    Description: The ECS Service name
+    Value: !Ref ECSService

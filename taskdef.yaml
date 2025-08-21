@@ -1,0 +1,50 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Child stack for ECS Task Definition (Fargate)
+
+Parameters:
+
+  TaskFamily:
+    Type: String
+
+  ContainerName:
+    Type: String
+
+  ContainerPort:
+    Type: Number
+
+  Cpu:
+    Type: String
+
+  Memory:
+    Type: String
+
+  ExecutionRoleArn:
+    Type: String
+
+  ImageUrl:
+    Type: String
+
+Resources:
+  ECSTaskDefinition:
+    Type: AWS::ECS::TaskDefinition
+    Properties:
+      Family: !Ref TaskFamily
+      NetworkMode: awsvpc
+      RequiresCompatibilities:
+        - FARGATE
+      Cpu: !Ref Cpu
+      Memory: !Ref Memory
+      ExecutionRoleArn: !Ref ExecutionRoleArn
+      ContainerDefinitions:
+        - Name: !Ref ContainerName
+          Image: !Ref ImageUrl
+          Essential: true
+          PortMappings:
+            - ContainerPort: !Ref ContainerPort
+              HostPort: !Ref ContainerPort
+              Protocol: tcp
+
+Outputs:
+  TaskDefinitionArnOut:
+    Description: ARN of the ECS Task Definition
+    Value: !Ref ECSTaskDefinition

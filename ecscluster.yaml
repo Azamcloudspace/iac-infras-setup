@@ -1,0 +1,19 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: ECS Cluster stack
+
+Parameters:
+  ClusterName:
+    Type: String
+
+Resources:
+  ECSCluster:
+    Type: AWS::ECS::Cluster
+    Properties:
+      ClusterName: !Ref ClusterName
+
+Outputs:
+  ECSClusterName:
+    Value: !Ref ECSCluster
+
+  ECSClusterArn:
+    Value: !GetAtt ECSCluster.Arn
