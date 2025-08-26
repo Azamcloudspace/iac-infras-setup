@@ -127,8 +127,12 @@ Resources:
    Type: AWS::CloudFormation::Stack
    Properties:
      TemplateURL: https://s3.amazonaws.com/iac-bucket-azamcloud/codebuild.yaml
-    
+     Parameters:
+     GitHubRepo: !Ref GitHubRepo
+     GitHubBranch: !Ref GitHubBranch
+     GitHubToken: !Ref GitHubToken
 
        
+
 
 
