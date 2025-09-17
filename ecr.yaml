@@ -1,11 +1,15 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Description: ECR Repository for microservice
 
+Parameters:
+  RepoName:
+    Type: String
+
 Resources:
   MyServiceECR:
     Type: AWS::ECR::Repository
     Properties:
-      RepositoryName: ecs-cicd-repo
+      RepositoryName: !Ref RepoName
       ImageScanningConfiguration:
         ScanOnPush: true
       LifecyclePolicy:
@@ -29,3 +33,4 @@ Resources:
 Outputs:
   RepositoryUri:
     Value: !GetAtt MyServiceECR.RepositoryUri
+
