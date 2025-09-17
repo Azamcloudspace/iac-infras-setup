@@ -1,6 +1,6 @@
 AWSTemplateFormatVersion: '2010-09-09'
 
-#Parameters:
+Parameters:
 #  Environment:
 #    Type: String
 #
@@ -25,7 +25,7 @@ AWSTemplateFormatVersion: '2010-09-09'
 #    Type: String
 #
 #  DBPassword:
-    Type: String
+#   Type: String
 
   TaskFamily:
     Type: String
@@ -59,6 +59,9 @@ AWSTemplateFormatVersion: '2010-09-09'
     Type: String
 
   ClusterName:
+    Type: String
+
+  RepoName:
     Type: String
 
 Resources:
@@ -113,7 +116,7 @@ Resources:
    Properties:
      TemplateURL: https://s3.amazonaws.com/iac-bucket-azamcloud/eb.yaml
       
-    TaskdefStack:
+  TaskdefStack:
      Type: AWS::CloudFormation::Stack
      Properties:
       TemplateURL: https//s3.amazonaws.com/iac-bucket-azamcloud/taskdef.yaml
@@ -131,16 +134,24 @@ Resources:
    Properties:
      TemplateURL: https://s3.amazonaws.com/iac-bucket-azamcloud/codebuild.yaml
      Parameters:
-     GitHubRepo: !Ref GitHubRepo
-     GitHubBranch: !Ref GitHubBranch
-     GitHubToken: !Ref GitHubToken
+      GitHubRepo: !Ref GitHubRepo
+      GitHubBranch: !Ref GitHubBranch
+      GitHubToken: !Ref GitHubToken
 
   EcsclusterStack:
    Type: AWS::Cloudformation::Stack
    Properties:
     TemplateURL: https://s3.amazonaws.com/iac-bucket-azamcloud/ecscluster.yaml
     Parameters:
-    ClusterName: !Ref ClusterName
+     ClusterName: !Ref ClusterName
+
+  EcrStack:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: https://s3.amazonaws.com/iac-bucket-azamcloud/ecr.yaml
+      Parameters:
+        RepoName: !Ref RepoName
+    
 
 
 
