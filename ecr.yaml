@@ -34,3 +34,4 @@ Outputs:
   RepositoryUri:
     Value: !GetAtt MyServiceECR.RepositoryUri
 
+
