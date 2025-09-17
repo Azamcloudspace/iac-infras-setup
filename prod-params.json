@@ -62,5 +62,10 @@
   {
     "ParameterKey": "ImageUrl",
     "ParameterValue": ""
+  },
+  {
+    "ParameterKey": "ClusterName",
+    "ParameterValue": "my-fargate-cluster"
   }
 ]
+
