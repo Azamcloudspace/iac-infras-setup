@@ -66,6 +66,11 @@
   {
     "ParameterKey": "ClusterName",
     "ParameterValue": "my-fargate-cluster"
+  },
+  {
+    "ParameterKey": "RepoName",
+    "ParameterValue": "ecs-cicd-repo"
   }
 ]
+
 
