@@ -58,6 +58,9 @@ AWSTemplateFormatVersion: '2010-09-09'
   GitHubToken:
     Type: String
 
+  ClusterName:
+    Type: String
+
 Resources:
 #  VPCStack:
 #    Type: AWS::CloudFormation::Stack
@@ -132,7 +135,13 @@ Resources:
      GitHubBranch: !Ref GitHubBranch
      GitHubToken: !Ref GitHubToken
 
-       
+  EcsclusterStack:
+   Type: AWS::Cloudformation::Stack
+   Properties:
+    TemplateURL: https://s3.amazonaws.com/iac-bucket-azamcloud/ecscluster.yaml
+    Parameters:
+    ClusterName: !Ref ClusterName
+
 
 
 
