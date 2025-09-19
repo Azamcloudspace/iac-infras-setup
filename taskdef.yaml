@@ -45,6 +45,7 @@ Resources:
               Protocol: tcp
 
 Outputs:
-  TaskDefinitionArnOut:
+  TaskDefinitionArn:
     Description: ARN of the ECS Task Definition
-    Value: !Ref ECSTaskDefinition
+    Value: !Ref ECSTaskDefinition.Arn
+
