@@ -5,55 +5,81 @@ Parameters:
   ServiceName:
     Type: String
 
-  ClusterName:
+  ClusterArn:
     Type: String
 
   TaskDefinitionArn:
     Type: String
 
-  Subnets:
-    Type: List<AWS::EC2::Subnet::Id>
-
+  PublicSubnet1:
+    Type: AWS::EC2::Subnet::Id
+  
+  PublicSubnet2:
+    Type: AWS::EC2::Subnet::Id
+    
   SecurityGroups:
     Type: List<AWS::EC2::SecurityGroup::Id>
 
   DesiredCount:
     Type: Number
 
-  TargetGroupArn:
-    Type: String
-
   ContainerName:
     Type: String
 
   ContainerPort:
     Type: Number
-    
-    
 
+  VPCID:
+    Type: AWS::EC2::VPC::Id
+    
 Resources:
-  ECSService:
+
+  MyService:
     Type: AWS::ECS::Service
     Properties:
       ServiceName: !Ref ServiceName
-      Cluster: !Ref ClusterName
-      TaskDefinition: !Ref TaskDefinitionArn
-      DesiredCount: !Ref DesiredCount
+      Cluster: !Ref ClusterArn
       LaunchType: FARGATE
+      DesiredCount: !Ref DesiredCount
+      TaskDefinition: !Ref TaskDefinitionArn
       NetworkConfiguration:
         AwsvpcConfiguration:
           AssignPublicIp: ENABLED
-          Subnets: !Ref Subnets
+          Subnets:
+            - !Ref PublicSubnet1
+            - !Ref PublicSubnet2
           SecurityGroups: !Ref SecurityGroups
       LoadBalancers:
-        - TargetGroupArn: !Ref TargetGroupArn
-          ContainerName: !Ref ContainerName
+        - ContainerName: !Ref ContainerName
           ContainerPort: !Ref ContainerPort
-      DeploymentConfiguration:
-        MaximumPercent: 200
-        MinimumHealthyPercent: 50
+          TargetGroupArn: !Ref MyTargetGroup
 
-Outputs:
-  ECSServiceName:
-    Description: The ECS Service name
-    Value: !Ref ECSService
+  MyLoadBalancer:
+    Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+    Properties:
+      Name: my-microservices-alb
+      Subnets:
+        - !Ref PublicSubnet1
+        - !Ref PublicSubnet2
+      SecurityGroups: !Ref SecurityGroups
+      Scheme: internet-facing
+      Type: application
+
+  MyTargetGroup:
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Properties:
+      VpcId: !Ref VPCID
+      Protocol: HTTP
+      Port: !Ref ContainerPort
+      TargetType: ip
+
+  MyListener:
+    Type: AWS::ElasticLoadBalancingV2::Listener
+    Properties:
+      DefaultActions:
+        - Type: forward
+          TargetGroupArn: !Ref MyTargetGroup
+      LoadBalancerArn: !Ref MyLoadBalancer
+      Port: 80
+      Protocol: HTTP
+
