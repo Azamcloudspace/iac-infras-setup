@@ -64,6 +64,24 @@ Parameters:
   RepoName:
     Type: String
 
+  ServiceName:
+    Type: String
+
+  PublicSubne1:
+    Type: AWS::EC2::Subnet::Id
+
+  PublicSubnet2:
+    Type: Type: AWS::EC2::Subnet::Id
+
+  SecurityGroups:
+    Type: List<AWS::EC2::SecurityGroup::Id>
+
+  DesiredCount:
+    Type: Number
+
+  VPCID:
+    Type: AWS::EC2::VPC::Id
+  
 Resources:
 #  VPCStack:
 #    Type: AWS::CloudFormation::Stack
@@ -106,17 +124,17 @@ Resources:
 #      Parameters:
 #        Environment: !Ref Environment
 
-  ArtifactBucketStack:
-    Type: AWS::CloudFormation::Stack
-    Properties:
-      TemplateURL: https://s3.amazonaws.com/iac-bucket-azamcloud/artifact-bucket.yaml
+#  ArtifactBucketStack:
+#    Type: AWS::CloudFormation::Stack
+#    Properties:
+#      TemplateURL: https://s3.amazonaws.com/iac-bucket-azamcloud/artifact-bucket.yaml
 
-  EBStack:
-   Type: AWS::CloudFormation::Stack
-   Properties:
-     TemplateURL: https://s3.amazonaws.com/iac-bucket-azamcloud/eb.yaml
+#  EBStack:
+#   Type: AWS::CloudFormation::Stack
+#   Properties:
+#     TemplateURL: https://s3.amazonaws.com/iac-bucket-azamcloud/eb.yaml
       
-  TaskdefStack:
+   TaskdefStack:
      Type: AWS::CloudFormation::Stack
      Properties:
       TemplateURL: https//s3.amazonaws.com/iac-bucket-azamcloud/taskdef.yaml
@@ -151,7 +169,31 @@ Resources:
       TemplateURL: https://s3.amazonaws.com/iac-bucket-azamcloud/ecr.yaml
       Parameters:
         RepoName: !Ref RepoName
+
+  EcsServiceStack:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: https://s3.amazonaws.com/iac-bucket-azamcloud/ecsservice.yaml
+      Parameters:
+        ServiceName: !Ref ServiceName
+        ClusterArn: !GetAtt EcsclusterStack.Outputs.ECSClusterArn
+        TaskDefinitionArn: !GetAtt TaskdefStack.Outputs.TaskDefinitionArn
+        PublicSubnet1: !Ref PublicSubnet1
+        PublicSubnet2: !Ref PublicSubnet2
+        SecurityGroups: !Ref SecurityGroups
+        DesiredCount: !Ref DesiredCount
+        ContainerName: !Ref ContainerName
+        ContainerPort: !Ref ContainerPort
+        VPCID: !Ref VPCID
+
+  CodepipelineStack:
+  
+
+  
     
+
+    
+
 
 
 
