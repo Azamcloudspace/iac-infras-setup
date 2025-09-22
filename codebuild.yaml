@@ -1,17 +1,5 @@
 AWSTemplateFormatVersion: '2010-09-09'
-Description: CodeBuild project using GitHub as source without auto-rebuild on push
-
-Parameters:
-  GitHubRepo:
-    Type: String
-
-  GitHubBranch:
-    Type: String
-    Default: main
-
-  GitHubToken:
-    Type: String
-    NoEcho: true
+Description: CodeBuild project for ECS CI/CD (triggered by CodePipeline)
 
 Resources:
   CodeBuildRole:
@@ -26,7 +14,6 @@ Resources:
             Action: sts:AssumeRole
       ManagedPolicyArns:
         - arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryPowerUser
-        - arn:aws:iam::aws:policy/AmazonECS_FullAccess
         - arn:aws:iam::aws:policy/CloudWatchLogsFullAccess
         - arn:aws:iam::aws:policy/AmazonS3FullAccess
 
@@ -43,25 +30,21 @@ Resources:
         Type: LINUX_CONTAINER
         PrivilegedMode: true
       Source:
-        Type: GITHUB
-        Location: !Sub "https://github.com/${GitHubRepo}.git"
-        GitCloneDepth: 1
-        BuildSpec: buildspec.yml 
-        Auth:
-          Type: OAUTH
-          Resource: !Ref GitHubToken
-        ReportBuildStatus: true
-        InsecureSsl: false
-      Triggers: 
-        Webhook: false
+        Type: CODEPIPELINE
+        BuildSpec: buildspec.yml
       TimeoutInMinutes: 30
+      Triggers:
+        Webhook: false
 
 Outputs:
   CodeBuildProject:
     Value: !Ref EcsCicdBuild
+    Export:
+      Name: EcsCicdBuildProject
 
 
     
+
 
 
 
