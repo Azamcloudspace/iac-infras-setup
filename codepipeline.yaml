@@ -12,14 +12,17 @@ Parameters:
   GitHubToken:
     Type: String
     NoEcho: true
-  ECRRepoUri:
-    Type: String
   ECSClusterName:
     Type: String
   ECSServiceName:
     Type: String
+  CodeBuildProject:
+    Type: String
 
 Resources:
+  ArtifactBucket:
+    Type: AWS::S3::Bucket
+
   PipelineRole:
     Type: AWS::IAM::Role
     Properties:
@@ -34,11 +37,15 @@ Resources:
         - arn:aws:iam::aws:policy/AmazonS3FullAccess
         - arn:aws:iam::aws:policy/AmazonECS_FullAccess
         - arn:aws:iam::aws:policy/AWSCodeBuildDeveloperAccess
+        - arn:aws:iam::aws:policy/AWSCodePipeline_FullAccess
 
   MyPipeline:
     Type: AWS::CodePipeline::Pipeline
     Properties:
       RoleArn: !GetAtt PipelineRole.Arn
+      ArtifactStore:
+        Type: S3
+        Location: !Ref ArtifactBucket
       Stages:
         - Name: Source
           Actions:
@@ -55,6 +62,7 @@ Resources:
                 Repo: !Ref GitHubRepo
                 Branch: !Ref GitHubBranch
                 OAuthToken: !Ref GitHubToken
+
         - Name: Build
           Actions:
             - Name: CodeBuild
@@ -68,7 +76,8 @@ Resources:
               OutputArtifacts:
                 - Name: BuildOutput
               Configuration:
-                ProjectName: my-service-build
+                ProjectName: !Ref CodeBuildProject
+
         - Name: Deploy
           Actions:
             - Name: ECSDeploy
@@ -83,3 +92,4 @@ Resources:
                 ClusterName: !Ref ECSClusterName
                 ServiceName: !Ref ECSServiceName
                 FileName: imagedefinitions.json
+
