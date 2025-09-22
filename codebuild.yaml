@@ -57,10 +57,11 @@ Resources:
       TimeoutInMinutes: 30
 
 Outputs:
-  CodeBuildProjectName:
+  CodeBuildProject:
     Value: !Ref EcsCicdBuild
 
 
     
+
 
 
