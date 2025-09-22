@@ -55,6 +55,9 @@ Parameters:
     Type: String
     Default: main
 
+  GitHubOwner:
+    Type: String
+
   GitHubToken:
     Type: String
 
@@ -67,11 +70,11 @@ Parameters:
   ServiceName:
     Type: String
 
-  PublicSubne1:
+  PublicSubnet1:
     Type: AWS::EC2::Subnet::Id
 
   PublicSubnet2:
-    Type: Type: AWS::EC2::Subnet::Id
+    Type: AWS::EC2::Subnet::Id
 
   SecurityGroups:
     Type: List<AWS::EC2::SecurityGroup::Id>
@@ -81,6 +84,7 @@ Parameters:
 
   VPCID:
     Type: AWS::EC2::VPC::Id
+
   
 Resources:
 #  VPCStack:
@@ -134,34 +138,30 @@ Resources:
 #   Properties:
 #     TemplateURL: https://s3.amazonaws.com/iac-bucket-azamcloud/eb.yaml
       
-   TaskdefStack:
-     Type: AWS::CloudFormation::Stack
-     Properties:
-      TemplateURL: https//s3.amazonaws.com/iac-bucket-azamcloud/taskdef.yaml
+  TaskdefStack:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: https://s3.amazonaws.com/iac-bucket-azamcloud/taskdef.yaml
       Parameters:
-       Taskfamily: !Ref Taskfamily
-       ContainerName: !Ref ContainerName
-       ContainerPort: !Ref ContainerPort
-       Cpu: !Ref CPU
-       Memory: !Ref Memory 
-       ExecutionRoleARN: !Ref ExecutionRoleARN
-       ImageUrl: !Ref ImageUrl
-
+        TaskFamily: !Ref TaskFamily
+        ContainerName: !Ref ContainerName
+        ContainerPort: !Ref ContainerPort
+        Cpu: !Ref Cpu
+        Memory: !Ref Memory 
+        ExecutionRoleArn: !Ref ExecutionRoleArn
+        ImageUrl: !Ref ImageUrl
+  
   CodebuildStack:
-   Type: AWS::CloudFormation::Stack
-   Properties:
-     TemplateURL: https://s3.amazonaws.com/iac-bucket-azamcloud/codebuild.yaml
-     Parameters:
-      GitHubRepo: !Ref GitHubRepo
-      GitHubBranch: !Ref GitHubBranch
-      GitHubToken: !Ref GitHubToken
-
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: https://s3.amazonaws.com/iac-bucket-azamcloud/codebuild.yaml
+  
   EcsclusterStack:
-   Type: AWS::Cloudformation::Stack
-   Properties:
-    TemplateURL: https://s3.amazonaws.com/iac-bucket-azamcloud/ecscluster.yaml
-    Parameters:
-     ClusterName: !Ref ClusterName
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: https://s3.amazonaws.com/iac-bucket-azamcloud/ecscluster.yaml
+      Parameters:
+       ClusterName: !Ref ClusterName
 
   EcrStack:
     Type: AWS::CloudFormation::Stack
@@ -173,7 +173,7 @@ Resources:
   EcsServiceStack:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: https://s3.amazonaws.com/iac-bucket-azamcloud/ecsservice.yaml
+      TemplateURL: https://s3.amazonaws.com/iac-bucket-azamcloud/ecsservice.yaml 
       Parameters:
         ServiceName: !Ref ServiceName
         ClusterArn: !GetAtt EcsclusterStack.Outputs.ECSClusterArn
@@ -187,14 +187,16 @@ Resources:
         VPCID: !Ref VPCID
 
   CodepipelineStack:
-  
-
-  
+    Type: AWS::CloudFormation::Stack
+    Properties: 
+      TemplateURL: https://s3.amazonaws.com/iac-bucket-azamcloud/codepipeline.yaml
+      Parameters:
+        GitHubOwner: !Ref GitHubOwner
+        GitHubRepo: !Ref GitHubRepo
+        GitHubBranch: !Ref GitHubBranch
+        GitHubToken: !Ref GitHubToken
+        EcsClusterName: !Ref ClusterName
+        EcsServiceName: !Ref ServiceName
+        CodeBuildProject: !GetAtt CodebuildStack.Outputs.CodeBuildProject
+        
     
-
-    
-
-
-
-
-
