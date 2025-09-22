@@ -1,4 +1,4 @@
-AWSTemplateFormatVersion: 2010-09-09
+AWSTemplateFormatVersion: '2010-09-09'
 Description: Child stack for ECS Task Definition (Fargate)
 
 Parameters:
@@ -47,5 +47,6 @@ Resources:
 Outputs:
   TaskDefinitionArn:
     Description: ARN of the ECS Task Definition
-    Value: !Ref ECSTaskDefinition.Arn
+    Value: !GetAtt ECSTaskDefinition.Arn
+
 
