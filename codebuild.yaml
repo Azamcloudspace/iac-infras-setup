@@ -39,11 +39,10 @@ Resources:
 Outputs:
   CodeBuildProject:
     Value: !Ref EcsCicdBuild
-    Export:
-      Name: EcsCicdBuildProject
 
 
     
+
 
 
 
