@@ -14,6 +14,12 @@ phases:
       - aws s3 cp s3.yaml s3://iac-bucket-azamcloud/
       - aws s3 cp eb.yaml s3://iac-bucket-azamcloud/
       - aws s3 cp artifact-bucket.yaml s3://iac-bucket-azamcloud/
+      - aws s3 cp codebuild.yaml s3://iac-bucket-azamcloud/
+      - aws s3 cp codepipeline.yaml s3://iac-bucket-azamcloud/
+      - aws s3 cp ecr.yaml s3://iac-bucket-azamcloud/
+      - aws s3 cp ecscluster.yaml s3://iac-bucket-azamcloud/
+      - aws s3 cp ecsservice.yaml s3://iac-bucket-azamcloud/
+      - aws s3 cp taskdef.yaml s3://iac-bucket-azamcloud/
       - aws cloudformation deploy --template-file master-stack.yaml --stack-name inframasterstack --capabilities CAPABILITY_NAMED_IAM --parameter-overrides file://prod-params.json
 
 artifacts:
