@@ -176,7 +176,7 @@ Resources:
       TemplateURL: https://s3.amazonaws.com/iac-bucket-azamcloud/ecsservice.yaml 
       Parameters:
         ServiceName: !Ref ServiceName
-        ClusterArn: !GetAtt EcsclusterStack.Outputs.ECSClusterArn
+        ClusterName: !Ref ClusterName
         TaskDefinitionArn: !GetAtt TaskdefStack.Outputs.TaskDefinitionArn
         PublicSubnet1: !Ref PublicSubnet1
         PublicSubnet2: !Ref PublicSubnet2
@@ -200,3 +200,4 @@ Resources:
         CodeBuildProject: !GetAtt CodebuildStack.Outputs.CodeBuildProject
         
     
+
