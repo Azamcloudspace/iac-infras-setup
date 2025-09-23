@@ -85,6 +85,9 @@ Parameters:
   VPCID:
     Type: AWS::EC2::VPC::Id
 
+  CodeBuildProject:
+  Type: String
+
   
 Resources:
 #  VPCStack:
@@ -151,10 +154,10 @@ Resources:
         ExecutionRoleArn: !Ref ExecutionRoleArn
         ImageUrl: !Ref ImageUrl
   
-  CodebuildStack:
-    Type: AWS::CloudFormation::Stack
-    Properties:
-      TemplateURL: https://s3.amazonaws.com/iac-bucket-azamcloud/codebuild.yaml
+  #CodebuildStack:
+    #Type: AWS::CloudFormation::Stack
+    #Properties:
+      #TemplateURL: https://s3.amazonaws.com/iac-bucket-azamcloud/codebuild.yaml
   
   EcsclusterStack:
     Type: AWS::CloudFormation::Stack
@@ -197,7 +200,8 @@ Resources:
         GitHubToken: !Ref GitHubToken
         EcsClusterName: !Ref ClusterName
         EcsServiceName: !Ref ServiceName
-        CodeBuildProject: !GetAtt CodebuildStack.Outputs.CodeBuildProject
+        CodeBuildProject: !Ref CodeBuildProject
         
     
+
 
