@@ -60,6 +60,7 @@ Parameters:
 
   GitHubToken:
     Type: String
+    NoEcho: true
 
   ClusterName:
     Type: String
@@ -203,5 +204,6 @@ Resources:
         CodeBuildProject: !Ref CodeBuildProject
         
     
+
 
 
