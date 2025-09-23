@@ -98,8 +98,21 @@
   {
     "ParameterKey": "CodeBuildProject",
     "ParameterValue": "ecs-infra-build"
-  }
+  },
+  {
+    "ParameterKey": "GitHubRepo",
+    "ParameterValue": "iac-infras-setup"
+  },
+  {
+    "ParameterKey": "GitHubOwner",
+    "ParameterValue": "Azamcloudspace"
+  },
+  {
+    "ParameterKey": "GitHubToken",
+    "ParameterValue": "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"
+  }  
 ]
+
 
 
 
