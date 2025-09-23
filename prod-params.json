@@ -33,9 +33,9 @@
   },
   {
     "ParameterKey": "DBPassword",
-    "ParameterValue": "cnhnhbejhfbe857748"
+    "ParameterValue": "ecsprojfamily"
   },
-    {
+  {
     "ParameterKey": "TaskFamily",
     "ParameterValue": "cnhnhbejhfbe857748"
   },
@@ -57,11 +57,11 @@
   },
   {
     "ParameterKey": "ExecutionRoleArn",
-    "ParameterValue": ""
+    "ParameterValue": "arn:aws:iam::975050225555:role/ecsTaskExecutionRole"
   },
   {
     "ParameterKey": "ImageUrl",
-    "ParameterValue": ""
+    "ParameterValue": "nginx:latest"
   },
   {
     "ParameterKey": "ClusterName",
@@ -70,7 +70,32 @@
   {
     "ParameterKey": "RepoName",
     "ParameterValue": "ecs-cicd-repo"
+  },
+  {
+    "ParameterKey": "ServiceName",
+    "ParameterValue": "ecs-cicd-service"
+  },
+  {
+    "ParameterKey": "PublicSubnet1",
+    "ParameterValue": "subnet-0d095bc428fe154b9"
+  },
+  {
+    "ParameterKey": "PublicSubnet2",
+    "ParameterValue": "subnet-0f668ab28c5d44620"
+  },
+  {
+    "ParameterKey": "SecurityGroups",
+    "ParameterValue": "sg-0838e95d12f02bf44,sg-0e83705b08e012e9b"
+  },
+  {
+    "ParameterKey": "DesiredCount",
+    "ParameterValue": "2"
+  },
+  {
+    "ParameterKey": "VPCID",
+    "ParameterValue": "vpc-0c6a81e12c0ac2523"
   }
 ]
+
 
 
