@@ -94,8 +94,13 @@
   {
     "ParameterKey": "VPCID",
     "ParameterValue": "vpc-0c6a81e12c0ac2523"
+  },
+  {
+    "ParameterKey": "CodeBuildProject",
+    "ParameterValue": "ecs-infra-build"
   }
 ]
+
 
 
 
