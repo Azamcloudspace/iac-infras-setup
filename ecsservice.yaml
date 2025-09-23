@@ -1,11 +1,11 @@
 AWSTemplateFormatVersion: '2010-09-09'
-Description: ECS Service stack
+Description: ECS Service stack with ALB
 
 Parameters:
   ServiceName:
     Type: String
 
-  ClusterArn:
+  ClusterName:
     Type: String
 
   TaskDefinitionArn:
@@ -38,7 +38,7 @@ Resources:
     Type: AWS::ECS::Service
     Properties:
       ServiceName: !Ref ServiceName
-      Cluster: !Ref ClusterArn
+      Cluster: !Ref ClusterName
       LaunchType: FARGATE
       DesiredCount: !Ref DesiredCount
       TaskDefinition: !Ref TaskDefinitionArn
@@ -72,6 +72,11 @@ Resources:
       Protocol: HTTP
       Port: !Ref ContainerPort
       TargetType: ip
+      HealthCheckProtocol: HTTP
+      HealthCheckPath: /
+      HealthCheckIntervalSeconds: 30
+      HealthyThresholdCount: 2
+      UnhealthyThresholdCount: 2
 
   MyListener:
     Type: AWS::ElasticLoadBalancingV2::Listener
@@ -82,4 +87,19 @@ Resources:
       LoadBalancerArn: !Ref MyLoadBalancer
       Port: 80
       Protocol: HTTP
+
+Outputs:
+  ECSServiceName:
+    Description: ECS Service name
+    Value: !Ref MyService
+
+  LoadBalancerDNSName:
+    Description: Public DNS of the ALB
+    Value: !GetAtt MyLoadBalancer.DNSName
+
+  TargetGroupArn:
+    Description: ARN of the Target Group
+    Value: !Ref MyTargetGroup
+
+
 
