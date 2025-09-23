@@ -87,7 +87,7 @@ Parameters:
     Type: AWS::EC2::VPC::Id
 
   CodeBuildProject:
-  Type: String
+    Type: String
 
   
 Resources:
@@ -204,6 +204,7 @@ Resources:
         CodeBuildProject: !Ref CodeBuildProject
         
     
+
 
 
 
