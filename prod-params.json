@@ -84,8 +84,12 @@
     "ParameterValue": "subnet-0f668ab28c5d44620"
   },
   {
-    "ParameterKey": "SecurityGroups",
-    "ParameterValue": "sg-0838e95d12f02bf44,sg-0e83705b08e012e9b"
+    "ParameterKey": "SG1",
+    "ParameterValue": "sg-0838e95d12f02bf44"
+  },
+  {
+    "ParameterKey": "SG2",
+    "ParameterValue": "sg-0e83705b08e012e9b"
   },
   {
     "ParameterKey": "DesiredCount",
@@ -112,6 +116,7 @@
     "ParameterValue": "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"
   }  
 ]
+
 
 
 
