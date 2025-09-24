@@ -199,11 +199,13 @@ Resources:
         GitHubRepo: !Ref GitHubRepo
         GitHubBranch: !Ref GitHubBranch
         GitHubToken: !Ref GitHubToken
-        EcsClusterName: !Ref ClusterName
-        EcsServiceName: !Ref ServiceName
-        CodeBuildProject: !Ref CodeBuildProject
+        ECSClusterName: !Ref ClusterName
+        ECSServiceName: !Ref ServiceName
+        CodeBuildProject: !GetAtt CodebuildStack.Outputs.EcsCicdBuild
+        
         
     
+
 
 
 
