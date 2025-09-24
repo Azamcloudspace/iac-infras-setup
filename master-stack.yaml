@@ -205,10 +205,11 @@ Resources:
         GitHubToken: !Ref GitHubToken
         ECSClusterName: !Ref ClusterName
         ECSServiceName: !Ref ServiceName
-        CodeBuildProject: !GetAtt CodebuildStack.Outputs.EcsCicdBuild
+        CodeBuildProject: !GetAtt CodebuildStack.Outputs.CodeBuildProject
         
         
     
+
 
 
 
