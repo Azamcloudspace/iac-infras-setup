@@ -47,6 +47,7 @@ Resources:
 Outputs:
   TaskDefinitionArn:
     Description: ARN of the ECS Task Definition
-    Value: !GetAtt ECSTaskDefinition.Arn
+    Value: !Ref ECSTaskDefinition
+
 
 
