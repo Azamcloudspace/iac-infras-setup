@@ -39,6 +39,7 @@ Resources:
 
   MyService:
     Type: AWS::ECS::Service
+    DependsOn: MyListener
     Properties:
       ServiceName: !Ref ServiceName
       Cluster: !Ref ClusterName
@@ -107,6 +108,7 @@ Outputs:
   TargetGroupArn:
     Description: ARN of the Target Group
     Value: !Ref MyTargetGroup
+
 
 
 
