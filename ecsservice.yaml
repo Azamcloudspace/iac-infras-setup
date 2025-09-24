@@ -51,7 +51,9 @@ Resources:
           Subnets:
             - !Ref PublicSubnet1
             - !Ref PublicSubnet2
-          SecurityGroups: SecurityGroups: !Join [ ",", [ !Ref SG1, !Ref SG2 ] ]
+          SecurityGroups:
+            - !Ref SG1
+            - !Ref SG2
       LoadBalancers:
         - ContainerName: !Ref ContainerName
           ContainerPort: !Ref ContainerPort
@@ -64,7 +66,9 @@ Resources:
       Subnets:
         - !Ref PublicSubnet1
         - !Ref PublicSubnet2
-      SecurityGroups: !Ref SecurityGroups
+      SecurityGroups:
+        - !Ref SG1
+        - !Ref SG2
       Scheme: internet-facing
       Type: application
 
@@ -103,6 +107,7 @@ Outputs:
   TargetGroupArn:
     Description: ARN of the Target Group
     Value: !Ref MyTargetGroup
+
 
 
 
