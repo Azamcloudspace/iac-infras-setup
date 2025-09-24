@@ -72,19 +72,22 @@ Parameters:
     Type: String
 
   PublicSubnet1:
-    Type: AWS::EC2::Subnet::Id
+    Type: String
 
   PublicSubnet2:
-    Type: AWS::EC2::Subnet::Id
+    Type: String
 
-  SecurityGroups:
-    Type: List<AWS::EC2::SecurityGroup::Id>
+  SG1:
+    Type: String
+
+  SG2:
+    Type: String
 
   DesiredCount:
     Type: Number
 
   VPCID:
-    Type: AWS::EC2::VPC::Id
+    Type: String
 
   CodeBuildProject:
     Type: String
@@ -184,7 +187,8 @@ Resources:
         TaskDefinitionArn: !GetAtt TaskdefStack.Outputs.TaskDefinitionArn
         PublicSubnet1: !Ref PublicSubnet1
         PublicSubnet2: !Ref PublicSubnet2
-        SecurityGroups: !Ref SecurityGroups
+        SG1: !Ref SG1
+        SG2: !Ref SG2
         DesiredCount: !Ref DesiredCount
         ContainerName: !Ref ContainerName
         ContainerPort: !Ref ContainerPort
@@ -205,6 +209,7 @@ Resources:
         
         
     
+
 
 
 
