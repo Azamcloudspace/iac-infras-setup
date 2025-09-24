@@ -20,7 +20,7 @@ Resources:
   EcsCicdBuild:
     Type: AWS::CodeBuild::Project
     Properties:
-      Name: ecs-cicd-build
+      Name: ecs-cicd-building
       ServiceRole: !GetAtt CodeBuildRole.Arn
       Artifacts:
         Type: CODEPIPELINE
@@ -42,6 +42,7 @@ Outputs:
 
 
     
+
 
 
 
