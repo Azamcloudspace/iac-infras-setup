@@ -89,8 +89,6 @@ Parameters:
   VPCID:
     Type: String
 
-  CodeBuildProject:
-    Type: String
 
   
 Resources:
@@ -205,10 +203,11 @@ Resources:
         GitHubToken: !Ref GitHubToken
         ECSClusterName: !Ref ClusterName
         ECSServiceName: !Ref ServiceName
-        CodeBuildProject: !Ref CodeBuildProject
+        CodeBuildProject: !GetAtt CodebuildStack.Outputs.EcsCicdBuild
         
         
     
+
 
 
 
