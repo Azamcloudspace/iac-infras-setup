@@ -105,7 +105,7 @@
   },
   {
     "ParameterKey": "GitHubRepo",
-    "ParameterValue": "iac-infras-setup"
+    "ParameterValue": "ecs-cicd-app"
   },
   {
     "ParameterKey": "GitHubOwner",
@@ -116,6 +116,7 @@
     "ParameterValue": "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"
   }  
 ]
+
 
 
 
